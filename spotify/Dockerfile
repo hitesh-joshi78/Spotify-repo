@@ -1,15 +1,15 @@
-# Use Maven to build the Spring Boot project
-FROM maven:3.9.3-eclipse-temurin-17 AS build
+# Use Maven with JDK 21
+FROM maven:3.9.3-eclipse-temurin-21 AS build
 
 WORKDIR /app
 
-# Copy only the subdirectory containing your app
+# Copy your app source code (change 'spotify' if needed)
 COPY spotify /app
 
 RUN mvn clean package -DskipTests
 
-# Use JDK base image to run the app
-FROM eclipse-temurin:17-jdk-jammy
+# Use JDK 21 to run the built JAR
+FROM eclipse-temurin:21-jdk-jammy
 
 WORKDIR /app
 
